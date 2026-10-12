@@ -1,0 +1,65 @@
+{
+  "_about": [
+    "Configurable engineering rules. These drive GENERATED VIEWS, never stored",
+    "columns, so editing this file and re-running tools/build_geopackage.py changes",
+    "every answer immediately without touching a single row of data.",
+    "",
+    "Recorded survey values are never overwritten. site.cores_recorded keeps what",
+    "the original design put there; v_cores_demand computes what the rule says; and",
+    "v_cores_variance lists where the two disagree so a human can adjudicate."
+  ],
+
+  "cores_per_drop": {
+    "_status": "DERIVED FROM RECORDED DATA - not invented, but not confirmed by an engineer either. Confirm before any procurement decision.",
+    "_evidence": "ceil(apartments / 8) reproduces cores_recorded for 1993 of 2041 buildings (97.6%) that carry both values. Competing divisors: /6 matches 68.4%, /10 matches 83.2%, /4 matches 23.8%. The 1:8 ratio is consistent with a 1:8 optical split. The remaining 2.4% are surfaced by v_cores_variance for review rather than being forced to fit.",
+
+    "applies_to_site_types": ["building_entrance"],
+
+    "_formula_note": [
+      "Evaluated per site. Available inputs: apartments, occupants, floors,",
+      "clients. Any input that is NULL makes the whole result NULL when",
+      "null_inputs is 'null_result' - the project never guesses a missing",
+      "measurement. Set null_inputs to 'treat_as_zero' only if you accept that."
+    ],
+    "formula": "apartments / apartments_per_core + spare_cores",
+    "parameters": {
+      "apartments_per_core": 8,
+      "spare_cores": 0
+    },
+    "_round_note": "Applied after the formula: ceil | floor | nearest | none.",
+    "round": "ceil",
+    "null_inputs": "null_result",
+
+    "min_cores": 1,
+    "max_cores": 24,
+
+    "_bands_note": "Optional: snap the result up to one of these values. Disabled by default - a per-building core demand of 1-4 is normal, and snapping it to orderable CABLE sizes would be a category error. Cable sizes live under cable_sizes below.",
+    "snap_to_bands": []
+  },
+
+  "occupancy": {
+    "_status": "UNCONFIRMED - used only if a rule references 'occupants' and the field app has not supplied it.",
+    "_note": "Left null deliberately. The field app is expected to supply occupants directly; no default household size is assumed, because assuming one would silently invent demand.",
+    "default_occupants_per_apartment": null
+  },
+
+  "cable_sizes": {
+    "_note": "Cable core counts the project can actually order. Used by BOQ rounding and by validation, which flags any recorded core count that is not orderable.",
+    "available_cores": [2, 4, 6, 8, 12, 24, 48, 96],
+    "feeder_default_cores": 96,
+    "distribution_default_cores": 24
+  },
+
+  "boundary_repair": {
+    "_note": "See decision D5. All 56 block boundaries are open LineStrings; the median gap between first and last vertex is 0.08 m and the largest is 2.53 m, so they are drawing slips rather than design intent.",
+    "close_ring_tolerance_m": 5.0,
+    "flag_for_review_above_m": 1.0
+  },
+
+  "quality_thresholds": {
+    "_note": "Used by the QA views. A threshold being exceeded is reported, never auto-corrected.",
+    "max_drop_length_m": 250,
+    "min_segment_length_m": 0.5,
+    "building_to_cable_max_distance_m": 50
+  }
+}

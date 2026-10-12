@@ -1,0 +1,126 @@
+{
+  "_about": [
+    "Controlled vocabulary for the Idlib FTTH project.",
+    "",
+    "'terms' defines the canonical concepts: an ASCII code that machines group by,",
+    "and the Arabic label that people read. Arabic is the display language; the code",
+    "is never shown to a user.",
+    "",
+    "'aliases' maps every raw string found in the source shapefiles onto a code.",
+    "The raw string is ALSO stored verbatim in <table>.type_raw, so nothing is lost",
+    "and a wrong mapping is a config edit rather than a data migration.",
+    "",
+    "To add a term: add it to 'terms', then map its raw spellings in 'aliases',",
+    "then re-run tools/build_geopackage.py. Unmapped raw values are not guessed -",
+    "they land with a NULL code and are listed by the v_qa_vocab view."
+  ],
+
+  "terms": {
+    "site_type": [
+      {"code": "building_entrance", "label_ar": "مداخل الأبنية",      "label_en": "Building entrance", "sort_order": 10},
+      {"code": "pole",              "label_ar": "أعمدة",              "label_en": "Pole",              "sort_order": 20},
+      {"code": "pole_selected",     "label_ar": "العمود المختار",     "label_en": "Selected pole",     "sort_order": 30},
+      {"code": "manhole",           "label_ar": "غرف التفتيش",        "label_en": "Manhole",           "sort_order": 40},
+      {"code": "manhole_24",        "label_ar": "غرف تفتيش 24",       "label_en": "Manhole 24",        "sort_order": 50},
+      {"code": "cabinet",           "label_ar": "خزانات",             "label_en": "Cabinet",           "sort_order": 60},
+      {"code": "dist_single",       "label_ar": "توزيع مفرد",         "label_en": "Single distribution", "sort_order": 70}
+    ],
+
+    "cable_type": [
+      {"code": "drop",            "label_ar": "كبلات drop",              "label_en": "Drop cable",              "sort_order": 10},
+      {"code": "drop_buried",     "label_ar": "drop ارضي",               "label_en": "Drop cable, buried",      "sort_order": 20},
+      {"code": "aerial",          "label_ar": "الكبلات الهوائية",        "label_en": "Aerial cable",            "sort_order": 30},
+      {"code": "dist_single",     "label_ar": "توزيع مفرد",              "label_en": "Single distribution",     "sort_order": 40},
+      {"code": "dist_double",     "label_ar": "توزيع مزدوج",             "label_en": "Double distribution",     "sort_order": 50},
+      {"code": "feeder",          "label_ar": "الكبل الرئيسي",           "label_en": "Feeder cable",            "sort_order": 60},
+      {"code": "feeder_splice",   "label_ar": "وصلة كبل رئيسي",          "label_en": "Feeder splice",           "sort_order": 70},
+      {"code": "feeder_24_duct",  "label_ar": "كبل 24 داخل القساطل",     "label_en": "24-core in duct",         "sort_order": 80},
+      {"code": "trench",          "label_ar": "حفر",                     "label_en": "Trenching",               "sort_order": 90}
+    ],
+
+    "status": [
+      {"code": "surveyed", "label_ar": "تم المسح",   "label_en": "Surveyed",     "sort_order": 10},
+      {"code": "designed", "label_ar": "تم التصميم", "label_en": "Designed",     "sort_order": 20},
+      {"code": "partial",  "label_ar": "جزئي",       "label_en": "Partial",      "sort_order": 30}
+    ],
+
+    "data_source": [
+      {"code": "design",     "label_ar": "تصميم",       "label_en": "Design (original QGIS work)", "sort_order": 10},
+      {"code": "field_app",  "label_ar": "تطبيق ميداني", "label_en": "Field app survey",            "sort_order": 20},
+      {"code": "import",     "label_ar": "استيراد",     "label_en": "Bulk import",                 "sort_order": 30}
+    ]
+  },
+
+  "_aliases_note": [
+    "Left side is the exact string as recorded in the shapefiles, including its",
+    "typos. Right side is the canonical code. Counts as measured on 2026-09-06 are",
+    "given for orientation; they are not used by the loader."
+  ],
+
+  "aliases": {
+    "site_type": {
+      "مداخل الأبنية":   {"code": "building_entrance", "_count": 9461},
+      "أعمدة":           {"code": "pole",              "_count": 5745},
+      "المختار":         {"code": "pole_selected",     "_count": 760,  "_note": "shorthand for العمود المختار"},
+      "العمود المختار":  {"code": "pole_selected",     "_count": 400},
+      "غرف تفتيش 24":    {"code": "manhole_24",        "_count": 369},
+      "غرفة تفتيش 24":   {"code": "manhole_24",        "_count": 23,   "_note": "singular variant"},
+      "غرف التفتيش":     {"code": "manhole",           "_count": 136},
+      "خزانات":          {"code": "cabinet",           "_count": 53},
+      "خزاتات":          {"code": "cabinet",           "_count": 1,    "_note": "typo for خزانات"},
+      "توزيع مفرد":      {"code": "dist_single",       "_count": 1,    "_note": "cable type recorded on a site"}
+    },
+
+    "cable_type": {
+      "كبلات drop":            {"code": "drop",           "_count": 5040},
+      "الكبلات الهوائية":      {"code": "aerial",         "_count": 421},
+      "توزيع مزدوج":           {"code": "dist_double",    "_count": 299},
+      "توزيع مفرد":            {"code": "dist_single",    "_count": 242},
+      "drop ارضي":             {"code": "drop_buried",    "_count": 86},
+      "هوائي":                 {"code": "aerial",         "_count": 57,  "_note": "shorthand; 2.6 km lost without this mapping"},
+      "حفر":                   {"code": "trench",         "_count": 18},
+      "الكبل الرئيسي":         {"code": "feeder",         "_count": 15},
+      "كبل 24 داخل القساطل":   {"code": "feeder_24_duct", "_count": 9},
+      "كبل رئيسي":             {"code": "feeder",         "_count": 1,   "_note": "shorthand"},
+      "وصلة كبل رئيسي":        {"code": "feeder_splice",  "_count": 1},
+      "كبل 24 داخل الأساطل":   {"code": "feeder_24_duct", "_count": 1,   "_note": "typo: الأساطل for القساطل"}
+    }
+  },
+
+  "_field_aliases_note": [
+    "Source shapefiles spell the same logical field several ways across 48 schemas.",
+    "Left side is any spelling seen in a .dbf; right side is the canonical column.",
+    "Matching is case-insensitive and ignores surrounding whitespace."
+  ],
+
+  "field_aliases": {
+    "site": {
+      "type": "type_raw", "Type": "type_raw",
+      "buildings": "building_ref", "buildings ": "building_ref",
+      "buildungs": "building_ref", "byildings": "building_ref",
+      "building n": "building_ref",
+      "floors num": "floors", "foolrs num": "floors",
+      "apartments": "apartments", "apatments": "apartments",
+      "cores num": "cores_recorded",
+      "box 1": "box_1", "box 2": "box_2", "box2": "box_2",
+      "FDB": "fdb_ref", "cabinet": "cabinet_ref",
+      "phone box": "phone_box"
+    },
+    "cable": {
+      "type": "type_raw", "Type": "type_raw",
+      "drop name": "drop_name",
+      "D 24": "d24",
+      "feeder 24": "feeder_24",
+      "feeder 96": "feeder_96"
+    },
+    "cable_count": {
+      "type": "count_raw", "NUM C": "count_raw"
+    }
+  },
+
+  "sectors": [
+    {"sector_code": "THW", "slug": "thawra", "name_ar": "قطاع الثورة",  "name_en": "Thawra sector",     "status": "designed"},
+    {"sector_code": "JAM", "slug": "jamaa",  "name_ar": "قطاع الجامعة", "name_en": "University sector", "status": "designed"},
+    {"sector_code": "HAN", "slug": "hananu", "name_ar": "قطاع هنانو",   "name_en": "Hananu sector",     "status": "surveyed"}
+  ]
+}

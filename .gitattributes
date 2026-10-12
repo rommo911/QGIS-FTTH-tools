@@ -1,0 +1,20 @@
+# Binary GIS assets - never diff/merge as text, never touch line endings
+*.shp   binary
+*.shx   binary
+*.dbf   binary
+*.sbn   binary
+*.sbx   binary
+*.qgz   binary
+*.kmz   binary
+*.rar   binary
+*.db    binary
+*.gpkg  binary
+*.pdf   binary
+# Text assets - keep LF, allow diffing
+*.qgs   text eol=lf
+*.qmd   text eol=lf
+*.qml   text eol=lf
+*.prj   text eol=lf
+*.cpg   text eol=lf
+*.md    text eol=lf
+*.py    text eol=lf

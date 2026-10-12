@@ -1,0 +1,55 @@
+{
+  "_about": [
+    "Language-specific matching for rename_to_ascii.py. Fill this in from the",
+    "audit report: its group tree gives you the sector names, and its filename",
+    "list gives you the layer-type keywords.",
+    "",
+    "Nothing here is Arabic-specific - the same shape works for any language.",
+    "The values below are the Idlib FTTH project, kept as a worked example."
+  ],
+
+  "_sectors_note": "Group name (as it appears in the layer tree) -> ASCII slug. Matching is substring, so a partial name is fine.",
+  "sectors": {
+    "قطاع الثورة": "thawra",
+    "قطاع الجامعة": "jamaa",
+    "قطاع هنانو": "hananu"
+  },
+
+  "_layer_types_note": "FIRST MATCH WINS - order most-specific first. 'عدد الكبلات' (cable count) must come before 'الكبلات' (cables) or every count layer is classified as a cable layer.",
+  "layer_types": [
+    {"code": "cablecount", "match": ["عدد الكبلات"]},
+    {"code": "cables",     "match": ["الكبلات"]},
+    {"code": "sites",      "match": ["المواقع", "مواقع"]},
+    {"code": "boundary",   "match": ["حدود"]},
+    {"code": "cabinet",    "match": ["مقسم"]}
+  ],
+
+  "_standalone_note": "Layers that belong to no sector/block. Exact source basename (no extension) -> the ASCII id to give it.",
+  "standalone": {
+    "القطاع الرئيسي": "idlib_feeder_main"
+  },
+
+  "_block_regex_note": "Extracts the block number from the block group's name.",
+  "block_group_regex": "(\\d+)",
+
+  "_pattern_note": "How an ASCII id is composed. {sector} {block} {type} are available; {block:02d} zero-pads so ids sort correctly as text.",
+  "pattern_block": "{sector}_b{block:02d}_{type}",
+  "pattern_sector": "{sector}_{type}",
+
+  "_kmz_note": "Reference containers get renamed too, and their sublayers need stable ids. id_stem is the prefix; geometry suffix (_pt/_ln/_pg) is appended automatically.",
+  "kmz_files": {
+    "قساطل وغرف تفتيش ادلب.kmz": {
+      "new_name": "idlib_ducts_manholes.kmz",
+      "id_stem": "idlib_ducts_manholes"
+    },
+    "غرف وقساطل جديدة-إدلب ftth.kmz": {
+      "new_name": "idlib_ftth_new.kmz",
+      "id_stem": "idlib_ftth_new"
+    }
+  },
+
+  "_kmz_sublayers_note": "Sublayer name fragment -> extra id suffix, when one container holds several themes.",
+  "kmz_sublayers": {
+    "المياه": "water"
+  }
+}
