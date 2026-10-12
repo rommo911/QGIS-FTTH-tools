@@ -26,6 +26,9 @@ Project-specific values live in JSON (`config/templates/`), never in code. The
 method is in [`docs/RUNBOOK.md`](docs/RUNBOOK.md), and the traps are in
 [`docs/PITFALLS.md`](docs/PITFALLS.md).
 
+For the people who edit a migrated project in QGIS, there is a click-by-click
+guide in [`user-guide/`](user-guide/README.md).
+
 ## Requirements
 
 QGIS 3.40+ or 4.x, for its bundled Python with PyQGIS and GDAL. On Windows, set

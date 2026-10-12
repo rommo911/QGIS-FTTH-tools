@@ -29,6 +29,7 @@ One command per project, reading `target/<project>`, writing only to
 | `docs/RUNBOOK.md` | the method, phase by phase. **Read before running anything.** |
 | `docs/PITFALLS.md` | 16 traps that fail silently. Read before writing any XML/path code. |
 | `docs/SCHEMA.md`, `DECISIONS.md`, `SURVEY_EXCHANGE.md` | target schema, the 8 design decisions, field-app round-trip contract |
+| `user-guide/` | click-by-click QGIS guides for the people who edit a migrated project (Word-level users, not programmers): open, edit, layers, import, export, fixes. Keep them in step with the schema: table/column names, ID formats, the per-block layer filters. |
 
 ## Status
 
